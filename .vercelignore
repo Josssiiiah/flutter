@@ -1,0 +1,15 @@
+.dart_tool
+.git
+.github
+.idea
+.vscode
+build/
+!build/web/
+ios/
+android/
+windows/
+linux/
+macos/
+test/
+flutter/
+node_modules/ 
