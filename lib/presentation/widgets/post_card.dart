@@ -163,6 +163,20 @@ class PostCard extends StatelessWidget {
                   post.imageUrl!,
                   width: double.infinity,
                   fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Container(
+                      height: 200,
+                      color: theme.colorScheme.primary.withOpacity(0.1),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null 
+                            ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                            : null,
+                        ),
+                      ),
+                    );
+                  },
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
                       height: 200,
