@@ -45,6 +45,11 @@ dependencies:
   firebase_core: ^3.12.1
   cloud_firestore: ^5.6.5
   intl: ^0.17.0
+  image_picker: ^1.0.7
+  image_picker_for_web: ^3.0.2
+  image_picker_web: ^3.1.1
+  uuid: ^4.5.1
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +76,18 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - lib/data/images/
+
+  fonts:
+    - family: Noto Sans
+      fonts:
+        - asset: assets/fonts/NotoSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/NotoSans-Bold.ttf
+          weight: 700
+    - family: Noto Color Emoji
+      fonts:
+        - asset: assets/fonts/NotoColorEmoji.ttf
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

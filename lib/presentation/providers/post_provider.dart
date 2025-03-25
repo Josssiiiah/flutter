@@ -53,6 +53,18 @@ class PostNotifier extends StateNotifier<PostState> {
     }
   }
 
+  Future<void> addPost(Post post) async {
+    try {
+      await _repository.addPost(post);
+      await fetchPosts();
+    } catch (e) {
+      state = state.copyWith(
+        errorMessage: 'Failed to create post: $e',
+      );
+      throw e;
+    }
+  }
+
   Future<void> likePost(String postId) async {
     try {
       await _repository.likePost(postId);

@@ -4,6 +4,7 @@ import 'package:flutter_fullstack/data/models/post_model.dart';
 import 'package:flutter_fullstack/presentation/providers/post_provider.dart';
 import 'package:flutter_fullstack/presentation/widgets/post_card.dart';
 import 'package:flutter_fullstack/presentation/providers/theme_provider.dart';
+import 'package:flutter_fullstack/presentation/widgets/spill_logo.dart';
 
 class FeedScreen extends ConsumerWidget {
   const FeedScreen({Key? key}) : super(key: key);
@@ -15,52 +16,89 @@ class FeedScreen extends ConsumerWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppBar(
-        titleSpacing: 20,
-        title: Text(
-          'SPILL',
-          style: theme.textTheme.headlineMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1.2,
-          ),
+      backgroundColor: Colors.transparent,
+      extendBodyBehindAppBar: true,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: isDarkMode
+              ? const RadialGradient(
+                  center: Alignment(0.7, -1.25),
+                  radius: 2,
+                  colors: [
+                    Color(0xff976658),
+                    Color(0xff2f2768),
+                    Color(0xff14161d),
+                  ],
+                  stops: [0.0, 0.3, 0.45],
+                )
+              : const RadialGradient(
+                  center: Alignment(0.7, -1.5),
+                  radius: 2,
+                  colors: [
+                    Color(0xffFFA07A), // Light salmon
+                    // Color(0xff6495ED), // Cornflower blue
+                    Color(0xffE6E6FA), // Lavender
+                  ],
+                  stops: [0.0, 0.45],
+                ),
         ),
-        centerTitle: false,
-        actions: [
-          // Theme toggle button
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: IconButton(
-              icon: Icon(
-                isDarkMode ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
-                color: isDarkMode ? Colors.amber.shade300 : Colors.blueGrey.shade800,
-              ),
-              onPressed: () => ref.read(themeModeProvider.notifier).toggleTheme(),
-              style: IconButton.styleFrom(
-                backgroundColor: isDarkMode 
-                    ? Colors.amber.shade200.withOpacity(0.2) 
-                    : Colors.blueGrey.shade100.withOpacity(0.3),
-                padding: const EdgeInsets.all(12),
+        child: Column(
+          children: [
+            PreferredSize(
+              preferredSize: const Size.fromHeight(120),
+              child: AppBar(
+                toolbarHeight: 120,
+                titleSpacing: 20,
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                title: Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: SpillLogo(
+                    width: 88,
+                    height: 24,
+                    color: isDarkMode ? Colors.white : Colors.black,
+                  ),
+                ),
+                centerTitle: false,
+                actions: [
+                  // Theme toggle button
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0, top: 20.0),
+                    child: IconButton(
+                      icon: Icon(
+                        isDarkMode ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+                        color: isDarkMode ? Colors.white : Colors.black,
+                      ),
+                      onPressed: () => ref.read(themeModeProvider.notifier).toggleTheme(),
+                      style: IconButton.styleFrom(
+                        backgroundColor: (isDarkMode ? Colors.white : Colors.black).withOpacity(0.1),
+                        padding: const EdgeInsets.all(12),
+                      ),
+                    ),
+                  ),
+                  // Search button
+                  Padding(
+                    padding: const EdgeInsets.only(right: 16.0, top: 20.0),
+                    child: IconButton(
+                      icon: Icon(Icons.search_rounded, color: isDarkMode ? Colors.white : Colors.black),
+                      onPressed: () {
+                        // Handle search action
+                      },
+                      style: IconButton.styleFrom(
+                        backgroundColor: (isDarkMode ? Colors.white : Colors.black).withOpacity(0.1),
+                        padding: const EdgeInsets.all(12),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-          // Search button
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: IconButton(
-              icon: const Icon(Icons.search_rounded),
-              onPressed: () {
-                // Handle search action
-              },
-              style: IconButton.styleFrom(
-                backgroundColor: theme.colorScheme.surfaceVariant.withOpacity(0.5),
-                padding: const EdgeInsets.all(12),
-              ),
+            Expanded(
+              child: _buildBody(context, ref, postState),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-      body: _buildBody(context, ref, postState),
     );
   }
 
@@ -126,7 +164,7 @@ class FeedScreen extends ConsumerWidget {
       color: theme.colorScheme.primary,
       backgroundColor: theme.colorScheme.surface,
       child: ListView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         itemCount: postState.posts.length,
         itemBuilder: (context, index) {
           final post = postState.posts[index];

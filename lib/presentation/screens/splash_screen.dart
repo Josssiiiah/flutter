@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_fullstack/presentation/providers/auth_provider.dart';
 import 'package:flutter_fullstack/core/theme/app_theme.dart';
+import 'package:flutter_fullstack/presentation/widgets/spill_logo.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -127,13 +128,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> with SingleTickerPr
                             ),
                           ],
                         ),
-                        child: Text(
-                          'S',
-                          style: TextStyle(
-                            fontSize: 56,
-                            fontWeight: FontWeight.bold,
-                            color: AppTheme.primaryColor,
-                          ),
+                        child: SpillLogo(
+                          width: 56,
+                          height: 56 * (24/88), // Maintain aspect ratio
+                          color: AppTheme.primaryColor,
                         ),
                       ),
                       const SizedBox(height: 40),

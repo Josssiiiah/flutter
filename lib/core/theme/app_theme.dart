@@ -9,6 +9,7 @@ class AppTheme {
   // Light theme
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
+    fontFamily: 'Noto Sans',
     colorScheme: ColorScheme.fromSeed(
       seedColor: primaryColor,
       secondary: secondaryColor,
@@ -104,6 +105,7 @@ class AppTheme {
   // Dark theme
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
+    fontFamily: 'Noto Sans',
     colorScheme: ColorScheme.fromSeed(
       seedColor: primaryColor,
       secondary: secondaryColor,
@@ -127,7 +129,7 @@ class AppTheme {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      color: const Color(0xFF1E1E1E),
+      color: const Color(0xFF1B1D24),
       margin: const EdgeInsets.symmetric(vertical: 8),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
